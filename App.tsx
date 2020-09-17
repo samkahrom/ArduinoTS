@@ -7,10 +7,8 @@ import {
   Button,
   FlatList,
   Switch,
-  TouchableOpacity,
-  ToastAndroid,
 } from "react-native";
-var _ = require("lodash");
+
 import BluetoothSerial from "react-native-bluetooth-serial";
 
 export default class App extends Component<{}> {
@@ -49,28 +47,11 @@ export default class App extends Component<{}> {
       );
     });
   }
-  connect(device) {
-    this.setState({ connecting: true });
-    BluetoothSerial.connect(device.id)
-      .then((res) => {
-        console.log(`Connected to device ${device.name}`);
-
-        ToastAndroid.show(
-          `Connected to device ${device.name}`,
-          ToastAndroid.SHORT
-        );
-      })
-      .catch((err) => console.log(err.message));
-  }
   _renderItem(item) {
     return (
-      <TouchableOpacity onPress={() => this.connect(item.item)}>
-        <View style={styles.deviceNameWrap}>
-          <Text style={styles.deviceName}>
-            {item.item.name ? item.item.name : item.item.id}
-          </Text>
-        </View>
-      </TouchableOpacity>
+      <View style={styles.deviceNameWrap}>
+        <Text style={styles.deviceName}>{item.item.name}</Text>
+      </View>
     );
   }
   enable() {
@@ -92,34 +73,12 @@ export default class App extends Component<{}> {
       this.disable();
     }
   }
-  discoverAvailableDevices() {
-    if (this.state.discovering) {
-      return false;
-    } else {
-      this.setState({ discovering: true });
-      BluetoothSerial.discoverUnpairedDevices()
-        .then((unpairedDevices) => {
-          const uniqueDevices = _.uniqBy(unpairedDevices, "id");
-          console.log(uniqueDevices);
-          this.setState({ unpairedDevices: uniqueDevices, discovering: false });
-        })
-        .catch((err) => console.log(err.message));
-    }
-  }
-  toggleSwitch() {
-    BluetoothSerial.write("T")
-      .then((res) => {
-        console.log(res);
-        console.log("Successfuly wrote to device");
-        this.setState({ connected: true });
-      })
-      .catch((err) => console.log(err.message));
-  }
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.toolbar}>
           <Text style={styles.toolbarTitle}>Bluetooth Device List</Text>
+
           <View style={styles.toolbarButton}>
             <Switch
               value={this.state.isEnabled}
@@ -127,21 +86,11 @@ export default class App extends Component<{}> {
             />
           </View>
         </View>
-        <Button
-          onPress={this.discoverAvailableDevices.bind(this)}
-          title="Scan for Devices"
-          color="#841584"
-        />
         <FlatList
           style={{ flex: 1 }}
           data={this.state.devices}
           keyExtractor={(item) => item.id}
           renderItem={(item) => this._renderItem(item)}
-        />
-        <Button
-          onPress={this.toggleSwitch.bind(this)}
-          title="Switch(On/Off)"
-          color="#841584"
         />
       </View>
     );
