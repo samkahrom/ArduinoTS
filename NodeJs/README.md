@@ -5,17 +5,17 @@ Asennetut paketit:
 NodeJs
 https://nodejs.org/en/
 
-SQLiterelaatiotietokantajärjestelmä
+SQLite relaatiotietokanta järjestelmä :
 npm install sqlite3 --save
 
-Framework palvelinpuolen web-sovellusten tekoon
+Framework palvelinpuolen web-sovellusten tekoon :
 npm install express --save 
 
-Mahdollistaa toiselta palvelimelta ladatun skriptin pääsyn tämän palvelimen koodiin
+Mahdollistaa toiselta palvelimelta ladatun skriptin pääsyn tämän palvelimen koodiin :
 npm install cors --save
 
-Tietoturvakirjasto
+Tietoturvakirjasto :
 npm install helmet --save 
 
-Nodea varten automaatio, käynnistää servun uusiksi tietojen muuttuessa
+Nodea varten automaatio, käynnistää servun uusiksi tietojen muuttuessa :
 npm install -g nodemon
