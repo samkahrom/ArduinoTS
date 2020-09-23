@@ -1,7 +1,10 @@
-Käynnistä palvelin komennolla npm run dev (tämä on parempi) tai node btdataServer
+## Käynnistä palvelin komennolla npm run dev (tämä on parempi) tai node btdataServer
 
+http://localhost:8080 - message	"Ei pyydettyä palvelua"
+http://localhost:8080/person/all - GET, Antaa JSONina SQL tietokannan sisällön
+http://localhost:8080/person/add - POST, Voit antaa tietokantaan tietoa 'btdata' 'datetime' 
 
-Asennetut paketit:
+## Asennetut paketit:
 NodeJs
 https://nodejs.org/en/
 
